@@ -8,12 +8,7 @@ const routes = Router();
 
 const user = new UserController();
 
-routes.post(
-  "https://testebank.onrender.com/register",
-  userFormValidator,
-  sendEmail,
-  user.create
-);
+routes.post("/register", userFormValidator, sendEmail, user.create);
 routes.post("/login", AuthMiddlewares, user.login);
 routes.get("/getAllUser", user.index);
 routes.get("/getAllUser/:id", user.getUserById);
