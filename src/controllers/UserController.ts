@@ -1,10 +1,10 @@
-import { compare, hash } from 'bcryptjs';
-import { Request, Response } from 'express';
-import { sign } from 'jsonwebtoken';
-import authConfig from '../config/auth';
-import bcriptjs from 'bcryptjs';
-import { prismaClient } from '../database/prismaClient';
-import { validationResult } from 'express-validator/src/validation-result';
+import { compare, hash } from "bcryptjs";
+import { Request, Response } from "express";
+import { sign } from "jsonwebtoken";
+import authConfig from "../config/auth";
+import bcriptjs from "bcryptjs";
+import { prismaClient } from "../database/prismaClient";
+import { validationResult } from "express-validator/src/validation-result";
 
 export class UserController {
   async index(req: Request, res: Response) {
@@ -12,13 +12,13 @@ export class UserController {
       const user = await prismaClient.user.findMany();
 
       if (!user) {
-        res.status(404).json({ message: 'No user found' });
+        res.status(404).json({ message: "No user found" });
       }
 
       res.status(200).json(user);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
   async create(req: Request, res: Response) {
@@ -33,7 +33,7 @@ export class UserController {
       let userExists = await prismaClient.user.findUnique({ where: { email } });
 
       if (userExists) {
-        return res.status(422).json({ message: 'User already Exists' });
+        return res.status(422).json({ message: "User already Exists" });
       }
 
       const hash_password = await hash(password, 8);
@@ -45,7 +45,7 @@ export class UserController {
       const isValuePassword = await compare(password, user.password);
 
       if (!isValuePassword) {
-        return res.status(422).json({ message: 'Invalid Password' });
+        return res.status(422).json({ message: "Invalid Password" });
       }
 
       const token = sign({}, authConfig.jwt.secret, {
@@ -56,7 +56,7 @@ export class UserController {
       res.status(201).json({ user, token });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -68,13 +68,13 @@ export class UserController {
       });
 
       if (!user) {
-        return res.status(404).json({ message: 'User Not Found' });
+        return res.status(404).json({ message: "User Not Found" });
       }
 
       res.status(201).json(user);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -85,20 +85,20 @@ export class UserController {
       const user = await prismaClient.user.findUnique({ where: { email } });
 
       if (!user) {
-        res.status(404).json({ message: 'User Not Found' });
+        res.status(404).json({ message: "User Not Found" });
         return;
       }
 
       //check if password matches
       if (!(await bcriptjs.compare(password, user.password))) {
-        res.status(422).json({ message: 'Invalid Password' });
+        res.status(422).json({ message: "Invalid Password" });
         return;
       }
 
       res.status(201).json({ user });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -109,13 +109,13 @@ export class UserController {
       const user = await prismaClient.user.delete({ where: { id_User } });
 
       if (!user) {
-        res.status(404).json({ message: 'User not Found' });
+        res.status(404).json({ message: "User not Found" });
       }
 
-      res.status(200).json({ message: 'User deleted successfully' });
+      res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -127,7 +127,6 @@ export class UserController {
         where: {
           name: {
             contains: String(search),
-            mode: 'insensitive',
           },
         },
         take: Number(take),
@@ -135,17 +134,17 @@ export class UserController {
       });
 
       if (!search) {
-        res.status(404).json({ message: 'Please write something' });
+        res.status(404).json({ message: "Please write something" });
       }
 
       if (!result) {
-        res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: "User not found" });
       }
 
       return res.json(result);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 }
