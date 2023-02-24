@@ -6,7 +6,9 @@ export const userFormValidator = [
     .isLength({ min: 7 })
     .withMessage("Min 8 characteres")
     .matches(/^(.*[A-Z].*)$/)
-    .withMessage("Password must contain at least one uppercase lettereeedada"),
+    .withMessage(
+      "Password must contain at least one uppercase lettereeedadddddda"
+    ),
   body("password")
     .matches(/(?=.*\d)/)
     .withMessage("Password must contain ate least one number"),
