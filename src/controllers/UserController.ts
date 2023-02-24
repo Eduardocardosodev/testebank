@@ -18,7 +18,9 @@ export class UserController {
       res.status(200).json(user);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error INDEXUSERCONTROLLER" });
     }
   }
   async create(req: Request, res: Response) {
@@ -56,7 +58,9 @@ export class UserController {
       res.status(201).json({ user, token });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error CREATE USERCONTROLLER" });
     }
   }
 
@@ -74,7 +78,9 @@ export class UserController {
       res.status(201).json(user);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error GETUSERBYID USERCONTROLLER" });
     }
   }
 
@@ -98,7 +104,9 @@ export class UserController {
       res.status(201).json({ user });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error LOGIN USERCONTROLER" });
     }
   }
 
@@ -115,7 +123,9 @@ export class UserController {
       res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error DELETE USER CONTROLER" });
     }
   }
 
@@ -144,7 +154,9 @@ export class UserController {
       return res.json(result);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ message: "Internal Server Error SERARCH USER CONTROLELR" });
     }
   }
 }
