@@ -7,7 +7,7 @@ export const userFormValidator = [
     .withMessage("Min 8 characteres")
     .matches(/^(.*[A-Z].*)$/)
     .withMessage(
-      "Password must contain at least one uppercase lettereeedadddddddddddda"
+      "Password must contain at least one uppercase lettereeedaddddddddddddddddddda"
     ),
   body("password")
     .matches(/(?=.*\d)/)
